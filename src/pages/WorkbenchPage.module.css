@@ -78,6 +78,7 @@
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--color-border);
   flex-shrink: 0;
+  height: 3rem;
 }
 
 .panelTitle {
@@ -99,6 +100,15 @@
   padding: 0.25rem 0.625rem;
 }
 
+.micButton:hover {
+  border-color: var(--color-text-muted);
+}
+
+.micButton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 .micActive {
   background: #dc2626;
   border-color: #dc2626;
@@ -116,6 +126,11 @@
   padding: 1rem;
   resize: none;
   width: 100%;
+}
+
+.textarea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
 }
 
 .footer {
@@ -150,6 +165,15 @@
   padding: 0.5rem 1rem;
 }
 
+.buttonPrimary:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.buttonPrimary:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 .buttonPrimary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -163,6 +187,16 @@
   cursor: pointer;
   font-size: 0.875rem;
   padding: 0.5rem 1rem;
+}
+
+.buttonSecondary:hover:not(:disabled) {
+  border-color: var(--color-text-muted);
+  background: var(--color-bg);
+}
+
+.buttonSecondary:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .buttonSecondary:disabled {

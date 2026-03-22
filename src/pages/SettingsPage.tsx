@@ -67,7 +67,7 @@ export function SettingsPage() {
                     <button className={styles.confirmNo} onClick={() => setConfirmDelete(null)}>Cancelar</button>
                   </span>
                 ) : (
-                  <button className={styles.deleteBtn} onClick={() => setConfirmDelete(t.id)}>✕</button>
+                  <button className={styles.deleteBtn} onClick={() => setConfirmDelete(t.id)} aria-label={`Eliminar plantilla ${t.name}`}>✕</button>
                 )}
               </li>
             ))}
@@ -80,6 +80,7 @@ export function SettingsPage() {
               <input
                 className={styles.nameInput}
                 placeholder="Nombre de la plantilla"
+                aria-label="Nombre de la plantilla"
                 value={editing.name}
                 onChange={(e) => setEditing({ ...editing, name: e.target.value })}
               />

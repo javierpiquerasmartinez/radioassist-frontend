@@ -62,6 +62,15 @@
   margin-bottom: 0.5rem;
 }
 
+.newButton:hover {
+  background: #2563eb;
+}
+
+.newButton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 .muted {
   color: var(--color-text-muted);
   font-size: 0.875rem;
@@ -167,8 +176,9 @@
   padding: 0.5rem 0.75rem;
 }
 
-.nameInput:focus {
-  outline: none;
+.nameInput:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -1px;
   border-color: var(--color-primary);
 }
 
@@ -185,7 +195,9 @@
   resize: none;
 }
 
-.contentArea:focus {
+.contentArea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -1px;
   border-color: var(--color-primary);
 }
 
@@ -204,6 +216,15 @@
   padding: 0.5rem 1.25rem;
 }
 
+.saveButton:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.saveButton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 .saveButton:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -217,4 +238,14 @@
   cursor: pointer;
   font-size: 0.875rem;
   padding: 0.5rem 1rem;
+}
+
+.cancelButton:hover {
+  border-color: var(--color-text-muted);
+  color: var(--color-text);
+}
+
+.cancelButton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }

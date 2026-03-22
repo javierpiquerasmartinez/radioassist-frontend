@@ -61,6 +61,8 @@ export function WorkbenchPage() {
               className={`${styles.micButton} ${isListening ? styles.micActive : ''}`}
               onClick={toggle}
               title="Espacio para activar/desactivar"
+              aria-label={isListening ? 'Desactivar micrófono' : 'Activar micrófono'}
+              aria-pressed={isListening}
             >
               {isListening ? '⏹ Escuchando…' : '🎙 Micrófono'}
             </button>
