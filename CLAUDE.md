@@ -4,6 +4,8 @@ React SPA for automatic radiology report generation.
 This repository contains exclusively the frontend.
 The backend lives in a separate repository (`radioassist-backend`).
 
+**Functional specification:** See [Spec.md](Spec.md) for the full product specification.
+
 ---
 
 ## Stack
