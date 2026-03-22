@@ -16,49 +16,87 @@ export function RegisterPage() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.card}>
-        <h1 className={styles.title}>Crear cuenta</h1>
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <label className={styles.label}>
-            Nombre
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className={styles.input}
-              required
-              autoFocus
-            />
-          </label>
-          <label className={styles.label}>
-            Email
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={styles.input}
-              required
-            />
-          </label>
-          <label className={styles.label}>
-            Contraseña
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={styles.input}
-              required
-              minLength={8}
-            />
-          </label>
-          {registerError && <p className={styles.error}>{registerError}</p>}
-          <button type="submit" className={styles.button} disabled={registerPending}>
-            {registerPending ? 'Creando cuenta…' : 'Crear cuenta'}
-          </button>
-        </form>
-        <p className={styles.footer}>
-          ¿Ya tienes cuenta? <Link to="/login" className={styles.link}>Inicia sesión</Link>
-        </p>
+      {/* Left branding panel */}
+      <div className={styles.brand} aria-hidden="true">
+        <div className={styles.brandContent}>
+          <div className={styles.brandLogo}>
+            Radio<span className={styles.brandAccent}>Assist</span>
+          </div>
+          <p className={styles.brandTagline}>Informes radiológicos inteligentes</p>
+        </div>
+        <div className={styles.brandDecor} />
+      </div>
+
+      {/* Right form panel */}
+      <div className={styles.formPanel}>
+        <div className={styles.formContainer}>
+          <h1 className={styles.title}>Crear cuenta</h1>
+          <p className={styles.subtitle}>Completa los datos para registrarte</p>
+
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="name">Nombre</label>
+              <input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className={styles.input}
+                required
+                autoFocus
+                placeholder="Tu nombre"
+              />
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={styles.input}
+                required
+                placeholder="tu@email.com"
+              />
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="password">Contraseña</label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={styles.input}
+                required
+                minLength={8}
+                placeholder="Mínimo 8 caracteres"
+              />
+            </div>
+
+            {registerError && (
+              <div className={styles.errorBox} role="alert">
+                <span className={styles.errorIcon} aria-hidden="true">!</span>
+                {registerError}
+              </div>
+            )}
+
+            <button type="submit" className={styles.button} disabled={registerPending}>
+              {registerPending ? (
+                <>
+                  <span className={styles.spinner} aria-hidden="true" />
+                  Creando cuenta…
+                </>
+              ) : 'Crear cuenta'}
+            </button>
+          </form>
+
+          <p className={styles.footer}>
+            ¿Ya tienes cuenta?{' '}
+            <Link to="/login" className={styles.link}>Inicia sesión</Link>
+          </p>
+        </div>
       </div>
     </div>
   );

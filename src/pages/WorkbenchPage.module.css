@@ -1,46 +1,93 @@
+/* ── Page shell ──────────────────────────────────────── */
 .page {
   display: flex;
   flex-direction: column;
   height: 100vh;
   background: var(--color-bg);
   color: var(--color-text);
+  overflow: hidden;
 }
 
+/* ── Header (48px) ───────────────────────────────────── */
 .header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1.5rem;
+  height: 48px;
+  padding: 0 1.25rem;
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
   flex-shrink: 0;
 }
 
 .logo {
+  font-size: 1rem;
   font-weight: 600;
-  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
 }
 
+.logoAccent {
+  background: linear-gradient(135deg, var(--color-primary), #8B5CF6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Session indicator (center) ──────────────────────── */
+.sessionIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sessionDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  flex-shrink: 0;
+  transition: background var(--transition-fast);
+}
+
+.sessionDotActive {
+  background: var(--color-success);
+  animation: dot-blink 2s ease-in-out infinite;
+}
+
+.sessionLabel {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* ── Nav (right) ─────────────────────────────────────── */
 .nav {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.875rem;
+  justify-content: flex-end;
 }
 
 .userName {
   color: var(--color-text-muted);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
 }
 
 .navLink {
-  color: var(--color-text-muted);
-  font-size: 0.875rem;
-  line-height: 1;
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
   text-decoration: none;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
 }
 
 .navLink:hover {
   color: var(--color-text);
+  border-color: var(--color-border-active);
+  background: var(--color-surface-overlay);
 }
 
 .navButton {
@@ -48,24 +95,27 @@
   border: none;
   color: var(--color-text-muted);
   cursor: pointer;
-  font-size: 0.875rem;
-  line-height: 1;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
   padding: 0;
+  transition: color var(--transition-fast);
 }
 
 .navButton:hover {
   color: var(--color-text);
 }
 
+/* ── Main two-column area ─────────────────────────────── */
 .main {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1px;
   flex: 1;
   overflow: hidden;
+  gap: 1px;
   background: var(--color-border);
 }
 
+/* ── Panel ───────────────────────────────────────────── */
 .panel {
   display: flex;
   flex-direction: column;
@@ -73,37 +123,110 @@
   overflow: hidden;
 }
 
+.panel:first-child {
+  animation: fade-in 0.25s ease 0.05s both;
+}
+
+.panel:last-child {
+  animation: fade-in 0.25s ease 0.1s both;
+}
+
+/* ── Panel header (40px) ─────────────────────────────── */
 .panelHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1rem;
+  padding: 0 1rem;
   border-bottom: 1px solid var(--color-border);
   flex-shrink: 0;
-  height: 3rem;
+  height: 40px;
+  background: var(--color-surface);
+}
+
+.panelTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
 }
 
 .panelTitle {
-  font-size: 0.875rem;
+  font-size: 0.6875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   margin: 0;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
-.micButton {
-  background: var(--color-surface);
+.wordCount {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+  background: var(--color-surface-raised);
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
-  border-radius: 4px;
-  color: var(--color-text);
+}
+
+/* ── Status badge (right panel header) ───────────────── */
+.statusBadge {
+  display: flex;
+  align-items: center;
+}
+
+.statusGenerating {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.statusSpinner {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border: 1.5px solid var(--color-border-active);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.statusReady {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: var(--color-success);
+}
+
+.statusDotGreen {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-success);
+}
+
+/* ── Mic button ───────────────────────────────────────── */
+.micButton {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
   cursor: pointer;
+  font-family: var(--font-sans);
   font-size: 0.8125rem;
   padding: 0.25rem 0.625rem;
+  height: 28px;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
 }
 
 .micButton:hover {
-  border-color: var(--color-text-muted);
+  border-color: var(--color-border-active);
+  color: var(--color-text);
+  background: var(--color-surface-overlay);
 }
 
 .micButton:focus-visible {
@@ -112,26 +235,40 @@
 }
 
 .micActive {
-  background: #dc2626;
-  border-color: #dc2626;
-  color: #fff;
+  background: rgba(255, 71, 87, 0.12);
+  border-color: var(--color-mic-active);
+  color: var(--color-mic-active);
+  animation: pulse-ring 1.5s ease-out infinite;
 }
 
 .micActive:hover {
-  background: #b91c1c;
-  border-color: #b91c1c;
+  background: rgba(255, 71, 87, 0.2);
+  border-color: var(--color-mic-active);
+  color: var(--color-mic-active);
 }
 
+/* ── Textarea (shared base) ───────────────────────────── */
 .textarea {
   background: transparent;
   border: none;
   color: var(--color-text);
   flex: 1;
+  font-family: var(--font-sans);
   font-size: 0.9375rem;
-  line-height: 1.6;
-  padding: 1rem;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  padding: 1.125rem 1.25rem;
   resize: none;
   width: 100%;
+}
+
+.textarea::placeholder {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.textarea:focus {
+  outline: none;
 }
 
 .textarea:focus-visible {
@@ -139,69 +276,107 @@
   outline-offset: -2px;
 }
 
-.textarea:focus:not(:focus-visible) {
-  outline: none;
+/* Report panel textarea — distinct background + monospace */
+.textareaReport {
+  background: var(--color-surface-raised);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.75;
+  letter-spacing: 0;
 }
 
+.textareaReport[data-has-content='true'] {
+  animation: fade-in 0.35s ease both;
+}
+
+/* ── Footer (56px) ───────────────────────────────────── */
 .footer {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 0.75rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0 1.25rem;
+  height: 56px;
   background: var(--color-surface);
   border-top: 1px solid var(--color-border);
   flex-shrink: 0;
 }
 
 .error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   color: var(--color-error);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   margin-right: auto;
+}
+
+.errorIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-error-dim);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
 .actions {
   display: flex;
-  gap: 0.75rem;
+  align-items: center;
+  gap: 0.5rem;
 }
 
+/* ── Shared button base ──────────────────────────────── */
+.buttonGhost,
+.buttonSecondary,
 .buttonPrimary {
-  background: var(--color-primary);
-  border: none;
-  border-radius: 4px;
-  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  font-size: 0.875rem;
-  padding: 0.5rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 0 0.875rem;
+  height: 34px;
+  white-space: nowrap;
+  transition: background var(--transition-fast), border-color var(--transition-fast),
+              opacity var(--transition-fast), transform 0.1s ease;
 }
 
-.buttonPrimary:hover:not(:disabled) {
-  background: #2563eb;
+/* Ghost — lowest emphasis */
+.buttonGhost {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
 }
 
-.buttonPrimary:focus-visible {
-  outline: 2px solid #fff;
+.buttonGhost:hover:not(:disabled) {
+  background: var(--color-surface-overlay);
+  border-color: var(--color-border-active);
+  color: var(--color-text);
+}
+
+.buttonGhost:focus-visible {
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-.buttonPrimary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
+/* Secondary */
 .buttonSecondary {
-  background: var(--color-surface);
+  background: var(--color-surface-raised);
   border: 1px solid var(--color-border);
-  border-radius: 4px;
   color: var(--color-text);
-  cursor: pointer;
-  font-size: 0.875rem;
-  padding: 0.5rem 1rem;
 }
 
 .buttonSecondary:hover:not(:disabled) {
-  border-color: var(--color-text-muted);
-  background: var(--color-bg);
+  background: var(--color-surface-overlay);
+  border-color: var(--color-border-active);
 }
 
 .buttonSecondary:focus-visible {
@@ -209,12 +384,63 @@
   outline-offset: 2px;
 }
 
-.buttonSecondary:disabled {
-  opacity: 0.5;
+/* Primary — gradient, most prominent */
+.buttonPrimary {
+  background: linear-gradient(135deg, var(--color-primary), #6366F1);
+  border: none;
+  color: #fff;
+  padding: 0 1.125rem;
+}
+
+.buttonPrimary:hover:not(:disabled) {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.buttonPrimary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.buttonPrimary:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Disabled state for all buttons */
+.buttonGhost:disabled,
+.buttonSecondary:disabled,
+.buttonPrimary:disabled {
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
-/* Visually hidden but readable by screen readers */
+/* ── Spinner inside primary button ───────────────────── */
+.btnSpinner {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ── Keyboard shortcut badge ─────────────────────────── */
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  color: inherit;
+  opacity: 0.55;
+  letter-spacing: 0;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+/* ── Screen reader only ───────────────────────────────── */
 .srOnly {
   position: absolute;
   width: 1px;
@@ -227,55 +453,60 @@
   border: 0;
 }
 
-.shortcutHint {
-  margin-left: 0.5rem;
-  font-size: 0.75rem;
-  opacity: 0.6;
-}
-
-/* ── Mobile ─────────────────────────────────────────── */
+/* ── Mobile ───────────────────────────────────────────── */
 @media (max-width: 640px) {
   .header {
-    padding: 0.5rem 1rem;
+    grid-template-columns: 1fr auto;
+    padding: 0 1rem;
+    height: 44px;
   }
 
-  /* Save header space: hide username, enlarge tap targets for nav */
+  .sessionIndicator {
+    display: none;
+  }
+
   .userName {
     display: none;
   }
 
   .navLink,
   .navButton {
-    font-size: 1rem;
+    font-size: 0.9375rem;
     min-height: 44px;
     display: flex;
     align-items: center;
   }
 
-  /* Stack panels vertically */
   .main {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
   }
 
   .panelTitle {
-    font-size: 1rem;
+    font-size: 0.875rem;
   }
 
-  /* Con paneles apilados el header tiene ancho completo — mic más cómodo */
   .micButton {
-    min-height: 44px;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
+    height: 36px;
+    padding: 0 0.875rem;
+    font-size: 0.9375rem;
+  }
+
+  .micLabel {
+    display: none;
   }
 
   .textarea {
-    /* Prevent iOS auto-zoom (requires >= 16px) */
     font-size: max(1rem, 16px);
+    padding: 1rem;
   }
 
-  /* Footer stacks vertically */
+  .textareaReport {
+    font-size: max(0.875rem, 16px);
+  }
+
   .footer {
+    height: auto;
     padding: 0.75rem 1rem;
     flex-direction: column;
     align-items: stretch;
@@ -286,7 +517,6 @@
     margin-right: 0;
   }
 
-  /* 2-column grid: generar | copiar / nuevo paciente full width */
   .actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -294,22 +524,20 @@
     width: 100%;
   }
 
-  .actions > :last-child {
+  .actions > .buttonPrimary {
     grid-column: 1 / -1;
-  }
-
-  .buttonPrimary,
-  .buttonSecondary {
-    min-height: 48px;
-    font-size: 1rem;
-    padding: 0.625rem 0.75rem;
     justify-content: center;
-    display: flex;
-    align-items: center;
   }
 
-  /* Hide keyboard hints — useless on mobile */
-  .shortcutHint {
+  .buttonGhost,
+  .buttonSecondary,
+  .buttonPrimary {
+    height: 48px;
+    font-size: 0.9375rem;
+    justify-content: center;
+  }
+
+  .kbd {
     display: none;
   }
 }

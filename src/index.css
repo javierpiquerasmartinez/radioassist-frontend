@@ -4,18 +4,57 @@
 
 :root {
   color-scheme: dark;
-  --color-bg: #0f1117;
-  --color-surface: #1a1d27;
-  --color-border: #2a2d3a;
-  --color-primary: #3b82f6;
-  --color-text: #e2e8f0;
-  --color-text-muted: #94a3b8;
-  --color-error: #f87171;
 
-  font-family: system-ui, -apple-system, sans-serif;
+  /* ── Color tokens ─────────────────────────────────── */
+  --color-bg:              #070B14;
+  --color-surface:         #0D1320;
+  --color-surface-raised:  #131A2E;
+  --color-surface-overlay: #1A2235;
+  --color-border:          #1E2D45;
+  --color-border-active:   #2E4568;
+
+  --color-primary:         #4D8FFF;
+  --color-primary-hover:   #6BA5FF;
+  --color-primary-dim:     rgba(77, 143, 255, 0.12);
+
+  --color-text:            #EEF2F7;
+  --color-text-secondary:  #8FA3BF;
+  --color-text-muted:      #566D8A;
+
+  --color-error:           #FF6B6B;
+  --color-error-dim:       rgba(255, 107, 107, 0.12);
+  --color-success:         #4ADE80;
+
+  --color-mic-active:      #FF4757;
+  --color-mic-pulse:       rgba(255, 71, 87, 0.3);
+
+  /* ── Typography ───────────────────────────────────── */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Radius ───────────────────────────────────────── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* ── Elevation ────────────────────────────────────── */
+  --shadow-sm:   0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md:   0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg:   0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 20px rgba(77, 143, 255, 0.15);
+
+  /* ── Transitions ──────────────────────────────────── */
+  --transition-fast: 0.15s ease;
+
+  /* Apply base typography */
+  font-family: var(--font-sans);
   font-size: 16px;
+  line-height: 1.5;
   color: var(--color-text);
   background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -25,4 +64,47 @@ body {
 
 #root {
   height: 100vh;
+}
+
+/* ── Global focus style (keyboard only) ──────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ── Scrollbar (webkit) ───────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-active);
+}
+
+/* ── Animations ───────────────────────────────────────── */
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 var(--color-mic-pulse); }
+  70%  { box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dot-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
 }
