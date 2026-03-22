@@ -45,7 +45,7 @@ export function WorkbenchPage() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <span className={styles.logo}>RadioAssist</span>
+        <strong className={styles.logo}>RadioAssist</strong>
         <nav className={styles.nav}>
           <span className={styles.userName}>{user?.name}</span>
           <Link to="/settings" className={styles.navLink}>Plantillas</Link>
@@ -56,7 +56,7 @@ export function WorkbenchPage() {
       <main className={styles.main}>
         <section className={styles.panel}>
           <div className={styles.panelHeader}>
-            <h2 className={styles.panelTitle}>Dictado</h2>
+            <h2 className={styles.panelTitle} id="dictado-label">Dictado</h2>
             <button
               className={`${styles.micButton} ${isListening ? styles.micActive : ''}`}
               onClick={toggle}
@@ -64,7 +64,8 @@ export function WorkbenchPage() {
               aria-label={isListening ? 'Desactivar micrófono' : 'Activar micrófono'}
               aria-pressed={isListening}
             >
-              {isListening ? '⏹ Escuchando…' : '🎙 Micrófono'}
+              <span aria-hidden="true">{isListening ? '⏹' : '🎙'}</span>
+              {isListening ? ' Escuchando…' : ' Micrófono'}
             </button>
           </div>
           <textarea
@@ -72,12 +73,13 @@ export function WorkbenchPage() {
             value={dictation}
             onChange={(e) => setDictation(e.target.value)}
             placeholder="Dicta o escribe aquí lo observado…"
+            aria-labelledby="dictado-label"
           />
         </section>
 
         <section className={styles.panel}>
           <div className={styles.panelHeader}>
-            <h2 className={styles.panelTitle}>Informe</h2>
+            <h2 className={styles.panelTitle} id="informe-label">Informe</h2>
           </div>
           <textarea
             className={styles.textarea}
@@ -85,32 +87,39 @@ export function WorkbenchPage() {
             onChange={(e) => setReport(e.target.value)}
             placeholder="El informe generado aparecerá aquí…"
             readOnly={isGenerating}
+            aria-labelledby="informe-label"
           />
+          <output aria-live="polite" className={styles.srOnly}>
+            {!isGenerating && report ? 'Informe generado' : ''}
+          </output>
         </section>
       </main>
 
       <footer className={styles.footer}>
-        {error && <span className={styles.error}>{error}</span>}
+        {error && <span className={styles.error} role="status">{error}</span>}
         <div className={styles.actions}>
           <button
             className={styles.buttonPrimary}
             onClick={() => generate()}
             disabled={isGenerating || !dictation.trim()}
           >
-            {isGenerating ? 'Generando…' : 'Generar  Ctrl+Enter'}
+            {isGenerating ? 'Generando…' : 'Generar'}
+            <span className={styles.shortcutHint}>Ctrl+Enter</span>
           </button>
           <button
             className={styles.buttonSecondary}
             onClick={handleCopy}
             disabled={!report}
           >
-            Copiar  Ctrl+C
+            Copiar
+            <span className={styles.shortcutHint}>Ctrl+C</span>
           </button>
           <button
             className={styles.buttonSecondary}
             onClick={newPatient}
           >
-            Nuevo paciente  Ctrl+N
+            Nuevo paciente
+            <span className={styles.shortcutHint}>Ctrl+N</span>
           </button>
         </div>
       </footer>
